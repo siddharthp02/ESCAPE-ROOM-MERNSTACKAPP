@@ -119,7 +119,7 @@ const ResponsiveAppBar = () => {
         console.log('Data has been received wow!')
         console.log(data)
         if(data!=null){
-          pages = [ <Link to = "/home" ><HomeIcon fontSize="large" style = {{color : "white"}}/></Link>,<Link to = "/storyline" style = {{color : "white", textDecoration : "none",}}>Storyline</Link>,<a href="http://127.0.0.1:8887/myapp/client/src/pages/level1/static/HTML_Files/Game_Page.html" style = {{color : "white", textDecoration : "none",}}>Level 1</a>,<a href = "http://127.0.0.1:8887/myapp/client/src/pages/level1/static/HTML_Files/Level_2.html" style = {{color : "white", textDecoration : "none",}}>Level 2</a>, <Link to = "/leaderboard" style = {{color : "white", textDecoration : "none",}}>PLAYERS</Link>,<Link to = "/review" style = {{color : "white", textDecoration : "none",}}>Review</Link>];
+          pages = [ <Link to = "/home" ><HomeIcon fontSize="large" style = {{color : "white"}}/></Link>,<Link to = "/storyline" style = {{color : "white", textDecoration : "none",}}>Storyline</Link>,<a href="http://127.0.0.1:8887/client/src/pages/level1/static/HTML_Files/Game_Page.html" style = {{color : "white", textDecoration : "none",}}>Level 1</a>,<a href = "http://127.0.0.1:8887/client/src/pages/level1/static/HTML_Files/Level_2.html" style = {{color : "white", textDecoration : "none",}}>Level 2</a>, <Link to = "/leaderboard" style = {{color : "white", textDecoration : "none",}}>PLAYERS</Link>,<Link to = "/review" style = {{color : "white", textDecoration : "none",}}>Review</Link>];
         }
       })
       .catch(() => {
