@@ -7,7 +7,7 @@ Sem-3 group webtech project
 
 ## Requirements
 
-Google chrome or microsoft edge. (must allow chrome extensions)
+Google chrome or microsoft edge (must allow chrome extensions).
 
 Nodejs installed
 
