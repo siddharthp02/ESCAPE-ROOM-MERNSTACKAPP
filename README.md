@@ -10,7 +10,7 @@ Google chrome
 https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?hl=en
 
 Add and launch app.
-Choose folder as mernstackapp. Verify port 8887.
+Choose folder as myapp. Verify port 8887.
 
 ## Install dependencies
 
