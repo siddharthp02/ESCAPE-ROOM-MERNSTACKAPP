@@ -1,0 +1,394 @@
+<html>
+	<head>
+		<script crossdomain src="https://unpkg.com/react@16/umd/react.development.js"> </script> 	
+		<script crossdomain src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"> </script> 
+		<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"> </script>	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script
+		src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="../CSS Files/Level_2.css">
+	</head>
+
+	<body>
+		<div id = "gamePage">
+			<button id = "homebutton"><a href = "http://localhost:3000/home" color = "white">HOME</a></button>
+			<div id = "gameArea">
+				<div id = "popup_main"></div>
+				
+				<div id = "room1">
+
+					<img src = "../Images/Study.jpg" id = "bg1"/>
+					<img src = "../Images/blank.jpg" id = "note1" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "note2" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "note3" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "note4" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "map1" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "map2" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "chest1" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "chest2" class = "clickables"/>
+
+					<img src = "../Images/up.png" id = "to_hall"/>
+
+
+					
+				
+				</div>
+
+				<div id = "room2">
+
+					<img src = "../Images/Hall.jpg" id = "bg2"/>
+					<img src = "../Images/blank.jpg" id = "main_door" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "lamp_l" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "lamp_r" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "mirror1" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "mirror2" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "animals_door" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "trap_door" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "paintings" class = "clickables"/>
+					<img src = "../Images/pendant.png" id = "pendant"/>
+					<img src = "../Images/up.png" id = "to_study"/>
+
+				</div>
+
+				<div id = "room3">
+
+					<img src = "../Images/Attic.jpg" id = "bg3"/>
+					<img src = "../Images/blank.jpg" id = "sculpture" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "books1" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "books2" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "books3" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "books4" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "books5" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "clock" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "chess" class = "clickables"/>
+					<img src = "../Images/up.png" id = "to_hall_from_attic"/>
+
+				</div>
+
+				<div id = "room4">
+
+					<img src = "../Images/Animals.jpg" id = "bg4"/>
+					<img src = "../Images/blank.jpg" id = "cloth" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "axe" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "chair" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "drawer" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "chair" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "eye" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "photo1" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "photo2" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "photo3" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "photo4" class = "clickables"/>
+					<img src = "../Images/blank.jpg" id = "photo5" class = "clickables"/>
+					<img src = "../Images/crowbar5.webp" id = "crowbar" class/>
+					<img src = "../Images/up.png" id = "to_hall_from_animals"/>
+
+
+				</div>
+
+				
+			</div>
+		</div>
+
+	</body>
+
+	<script type="text/javascript">
+
+		//Time spend
+		var start = new Date()
+		var end
+		var time_spent
+		
+		//Nodes
+		//Room1 elements
+		room1 = document.getElementById("room1")
+		note1 = document.getElementById("note1")
+		note2 = document.getElementById('note2')
+		note3 = document.getElementById("note3")
+		note4 = document.getElementById("note4")
+		map1 = document.getElementById("map1")
+		map2 = document.getElementById('map2')
+		to_hall = document.getElementById("to_hall")
+		chest1 = document.getElementById("chest1")
+		chest2 = document.getElementById("chest2")
+
+
+		//Room2 elements
+		room2 = document.getElementById("room2")
+		main_door = document.getElementById("main_door")
+		lamp_l = document.getElementById("lamp_l")
+		lamp_r = document.getElementById("lamp_r")
+		mirror1 = document.getElementById("mirror1")
+		mirror2 = document.getElementById("mirror2")
+		animals_door = document.getElementById("animals_door")
+		trap_door = document.getElementById("trap_door")
+		pendant = document.getElementById("pendant")
+		paintings = document.getElementById("paintings")
+
+
+		//Room3 elements
+		room3 = document.getElementById('room3')
+		sculpture = document.getElementById("sculpture")
+		books1 = document.getElementById("books1")
+		books2 = document.getElementById("books2")
+		books3 = document.getElementById("books3")
+		books4 = document.getElementById("books4")
+		books5 = document.getElementById("books5")
+		clock = document.getElementById("clock")
+		chess = document.getElementById("chess")
+		to_hall_from_attic = document.getElementById("to_hall_from_attic")
+
+
+		//Room4 elements
+		room4 = document.getElementById("room4")
+		cloth = document.getElementById("cloth")
+		axe = document.getElementById("axe")
+		drawer = document.getElementById("drawer")
+		chair = document.getElementById("chair")
+		eye = document.getElementById("eye")
+		photo1 = document.getElementById("photo1")
+		photo2 = document.getElementById("photo2")
+		photo3 = document.getElementById("photo3")
+		photo4 = document.getElementById("photo4")
+		photo5 = document.getElementById("photo5")
+		crowbarpic = document.getElementById("crowbar")
+		to_hall_from_animals = document.getElementById("to_hall_from_animals")
+
+		//Game Variables
+		var key = 0
+		var crowbar = 0
+		var trap_door_count = 0
+
+	</script>
+
+	<script type="text/babel">
+
+		class Popup extends React.Component
+		{
+			handleUnmount = () =>
+			{
+				ReactDOM.unmountComponentAtNode(document.getElementById("popup_main"))
+			}
+			render()
+			{
+				return(
+					<div className = "popup">{this.props.children}<br/>
+					<button type = "button" onClick = {this.handleUnmount} className = "exitbutton">Exit</button>
+					</div>
+				)
+			}
+		}
+
+		
+		ReactDOM.render(<Popup>...You slowly open your eyes to a room which looks like a study of some sort. The back of your head aches tremendously as if you were hit very hard with a blunt object. Your memory is hazy but all you can remember is walking out to get groceries and this hooded man came up to you and everything after that is blank...But wherever you are, you need to escape. And fast.</Popup>, document.getElementById("popup_main"))
+
+		//Room1
+		note1.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>On one of the notes in this bundle which catches your eye, it's written - Dear Son, Please stop this madness, stop reading those evil books and come home, marry and settle down. No one will recognise you in this village, you can start your life again. I beg you to listen to your mom for one time....</Popup>, document.getElementById("popup_main"))
+		})
+
+		note2.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>On one of the notes in this bundle which catches your eye, it's written - <br/> EVICTION NOTICE <br/> PLEASE CLEAR THE PREMISES IN THE NEXT THREE DAYS OR FACE PROSECUTION </Popup>, document.getElementById("popup_main"))
+		})
+
+		note3.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>On one of the notes in this bundle which catches your eye, it's written - <br/>My dear, I remember the times we used to be happy, used to be content and harmonious...But you changed, God knows why you changed to something so evil that not even Satan will accept you in his arms. To all those who fall victim to you, I pray that they listen to the voices of the dead when the wheel of fate will bring them the time they wish for. Goodbye my love...<br/><br/>Yours, Margaret Ashley</Popup>, document.getElementById("popup_main"))
+		})
+
+		note4.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>On one of the notes in this bundle which catches your eye, it's written - <br/>Birchwood Cooperative Housing Society Committee Notice <br/>Mr.Alan Artwood, our society has raised many concerns regarding your sanity and behaviour. We were tolerating you till now but 2 days back when you injured the son of Mr.Dington Mark just becuase he was playing next to your premises is just too far. We would like you to come forward with a genuine apology or else we have to and will lodge a police complaint.</Popup>, document.getElementById("popup_main"))
+		})
+
+		map1.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>Hmm, seems like your kidnapper likes to immitate pirates...Maybe he watches One piece?</Popup>, document.getElementById("popup_main"))
+		})
+
+		map2.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>This is a very badly drawn map, seems like a kid drew it</Popup>, document.getElementById("popup_main"))
+		})
+
+		to_hall.addEventListener("click", (event) => {
+			room1.style.display = "none"
+			room2.style.display = "block"
+		})
+
+		chest1.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>Hey don't get greedy! Gain all your riches after you escape from here</Popup>, document.getElementById("popup_main"))
+		})
+
+		chest2.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>Hey don't get greedy! Gain all your riches after you escape from here</Popup>, document.getElementById("popup_main"))
+		})
+
+		//Room2
+		paintings.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup> Just a bunch of weird nature and abstract paintings...Seriously what is up with this Alan Nutwood?</Popup>, document.getElementById("popup_main"))
+		})
+
+		mirror1.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>This mirror has a big crack in it, you lift it up and behind it with blood it is written - <br/>The glorious assassin was supported by two of the region's best soldiers, dressed in bright blue and power rivalling that of the assassin himself. The trio won many battles together and established the empire. One of their most glorious accomplishments was to capture the King of Amberville and the king was locked in the depths of the assassin's castle. Little did he know that the king was the half brother of one of the assassin's most trusted soldier, his right hand man...The soldier freed the king under the cloak of the dark from where the cruel king sneaked into the assassin's bedroom while he was sleeping and stabbed him 34 times. Thus was the end of the glorious assassin...</Popup>, document.getElementById("popup_main"))
+		})
+
+		mirror2.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>Damn, you do look ugly today...</Popup>, document.getElementById("popup_main"))
+		})
+
+		main_door.addEventListener("click", (event) => {
+			if(!key)
+			{
+				ReactDOM.render(<Popup>The door is shut tight...maybe there is a key here or some other way out?</Popup>, document.getElementById("popup_main"))
+			}
+			else
+			{
+				end = new Date()
+				const hours = parseInt(Math.abs(end - start) / (1000 * 60 * 60) % 24);
+				const minutes = parseInt(Math.abs(end.getTime() - start.getTime()) / (1000 * 60) % 60);
+				const seconds = parseInt(Math.abs(end.getTime() - start.getTime()) / (1000) % 60); 
+				console.log(time_spent)
+				ReactDOM.render(<Popup>The key opens the door, you have escaped! Congratulations on winning Level 2!<br/>Time taken: {hours}h {minutes}m {seconds}s</Popup>, document.getElementById("popup_main"))
+			}
+		})
+
+		lamp_l.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>Looks like a regular lamp...There is nothing special here</Popup>, document.getElementById("popup_main"))
+		})
+
+		lamp_r.addEventListener("click", (event) => {
+			key = 1
+			ReactDOM.render(<Popup>You found a key hidden inside this lamp!</Popup>, document.getElementById("popup_main"))
+		})
+
+		animals_door.addEventListener("click", (event) => {
+			room2.style.display = "none"
+			room4.style.display = "block"
+		})
+
+		trap_door.addEventListener("click", (event) => {
+			trap_door_count = 1
+			if(!crowbar)
+			{
+				ReactDOM.render(<Popup>There is a trap door under this mat, only if you had something to break it...</Popup>, document.getElementById("popup_main"))
+			}
+			else
+			{
+				if(crowbar == 1)
+				{
+					ReactDOM.render(<Popup>You break the trap door open using the crowbar! </Popup>, document.getElementById("popup_main"))
+					crowbar += 1
+				}
+				room2.style.display = "none"
+				room3.style.display = "block"
+			}
+		})
+
+		pendant.addEventListener("click", (event) => {
+			if(!trap_door_count){
+			ReactDOM.render(<Popup>You find a pendant next to the mat...maybe the one who loved Alan left it here, what was her name again? Margaret Ashley?. But wait you notice there is something under the mat!</Popup>, document.getElementById("popup_main"))
+			}
+			else
+			{
+				ReactDOM.render(<Popup>You find a pendant next to the mat...maybe the one who loved Alan left it here, what was her name again? Margaret Ashley.</Popup>, document.getElementById("popup_main"))
+			}
+
+			pendant.style.display = "none"
+		})
+
+		to_study.addEventListener("click", (event) => {
+			room2.style.display = "none"
+			room1.style.display = "block"
+		})
+
+
+		//Room3
+		sculpture.addEventListener("click", (event) => { 
+			ReactDOM.render(<Popup>That is one weird looking face...hey your math teacher of elementary grade used to look like that!</Popup>, document.getElementById("popup_main"))
+		})
+
+		books1.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>You pick one of the books here which piques your interest, the description is as follows -<br/><br/>Kafka on the Shore<br/>Kafka Tamura runs away from home at fifteen, under the shadow of his father's dark prophecy.<br/>The aging Nakata, tracker of lost cats, who never recovered from a bizzare childhood affliction, finds his pleasantly simplified life suddnely turned upside down.<br/>Read ahead to find where there journey leads them to<br/><br/>Written by Haruki Murakami in 1963<br/></Popup>, document.getElementById("popup_main"))
+		})
+
+		books2.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>You pick one of the books here which piques your interest, the description is as follows -<br/><br/>Mr Mercedes<br/><br/>Bill Hodges - Retired cop, tormented by 'the Mercedes massacre' a case he never solved<br/><br/>Reynold Artwood - perpetrator of that notorious crime, and preparing to kill agian.<br/>Who is going to be the fish in this relationship, and who is going to be the fisherman? Find out!<br/><br/>Written by William Shatner in 1911</Popup>, document.getElementById("popup_main") )
+		})
+
+		books3.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>You pick one of the books here which piques your interest, the description is as follows -<br/><br/>The Dark Assassin<br/><br/>It takes all the advantages of birth, training, and the luck of the devil to do it.<br/><br/>The Dark Assassin has all three, he has youth on his side, and he's determined to turn a profit. So when he hires his company out to protect an Abbess and her nunnery, it's just another job. The abby is rich, the nuns are pretty and the monster preying on them is nothing he can't deal with.<br/><br/>Only it's not just a job. It's going to be a war...The Dark Assassin has to face many a battles but more importantly know what his face will reflect in the mirror in the aftermath of the war. Find out more!<br/><br/>Written by Miles Cameron 1978</Popup>, document.getElementById("popup_main"))
+		})
+
+		books4.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>You pick one of the books from the shelf that piques your interest, the description is as follows -<br/><br/>Local Woman Missing<br/><br/>Shelby Tebow is the first to go missing. Not long after, Meredith Dickey and her six-year-old daughter, Delilah, vanish just blocks away from where Shelby was last seen, striking fear into their once-peaceful community. Are these incidents connected? After an elusive search that yields more questions than answers, the case eventually goes cold.<br/><br/>Now, 11 years later, Delilah shockingly returns. Everyone wants to know what happened to her, but no one is prepared for what they'll find....<br/><br/>Written by Mary Kubica in 1972</Popup>, document.getElementById("popup_main"))
+		})
+
+		books5.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>You pick one of the books here which piques your interest, the description is as follows -<br/><br/>Rock Paper Scissors<br/><br/>Things have been wrong with Mr and Mrs Wright for a long time. When Adam and Amelia win a weekend away to Scotland, it might be just what their marriage needs. Self-confessed workaholic and screenwriter Adam Wright has lived with face blindness his whole life. He can't recognize friends or family, or even his own wife.<br/><br/>Every anniversary the couple exchange traditional gifts - paper, cotton, pottery, tin - and each year Adam's wife writes him a letter that she never lets him read. Until now. They both know this weekend will make or break their marriage, but they didn't randomly win this trip. One of them is lying, and someone doesn't want them to live happily ever after.<br/><br/>Written by Alice Feeney in 1944</Popup>, document.getElementById("popup_main"))
+		})
+
+		chess.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>Seems like a standard chess arrangment with white knight on (6,3), white King on (7,2), white Rook on (1,1), black King on (2,4), black Pawn on (4,4), black Knight on (7,8)</Popup>, document.getElementById("popup_main"))
+		})
+
+		clock.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>Seems like the clock is broken, it's stuck at 7:56...</Popup>, document.getElementById("popup_main"))
+		})
+
+		to_hall_from_attic.addEventListener("click", (event) => {
+			room3.style.display = "none"
+			room2.style.display = "block"
+		})
+
+		//Room4
+		axe.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>Geez..There is blood on this axe, what in the world does this dude cut with this?</Popup>, document.getElementById("popup_main"))
+		})
+
+		cloth.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>Even this cloak is soaked with blood..Wait who in their right mind would wear a cloak in these times?</Popup>, document.getElementById("popup_main"))
+		})
+
+		drawer.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>You open one of the drawers and you find rows and rows of cat and dogs heads! Okay you seriously need to get out of here</Popup>, document.getElementById("popup_main"))
+		})
+
+		crowbarpic.addEventListener("click", (event) => {
+			crowbar = 1
+			ReactDOM.render(<Popup>You found a crowbar! Wonder what this could open...</Popup>, document.getElementById("popup_main"))
+			crowbarpic.style.display = "none"
+		})
+
+		chair.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>For a complete insane person, he has a pretty cute taste in furniture</Popup>, document.getElementById("popup_main"))
+		})
+
+		photo1.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>On the frame it is written - Martha Artwood, died in 1839 along with her pet Max, found dead in the Amberville Alleyway with all her limbs chopped off</Popup>, document.getElementById("popup_main"))
+		})
+
+		photo2.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>On the frame it is written - Max, died in 1839 along with her owner Martha with his heart ripped apart and fallen aside his lifeless body"</Popup>, document.getElementById("popup_main"))
+		})
+
+		photo3.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>On the frame it is written - Agatha Artwood, died in 1956 along with her pet Angie, found dead Amberville Park with her head chopped off, location of the body is still unknown</Popup>, document.getElementById("popup_main"))
+		})
+
+		photo4.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>On the frame it is written - Dublin Artwood, died in 1956, shortly after his daugher Agatha died, his body was found in the Amberville Lake</Popup>, document.getElementById("popup_main"))
+		})
+
+		photo5.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>On the frame it is written - Angie, died in 1956 along with her owner Agatha, cause of death is unknown but her left eye was ripped apart and nowhere to be found</Popup>, document.getElementById("popup_main"))
+		})
+
+		eye.addEventListener("click", (event) => {
+			ReactDOM.render(<Popup>You find there is a hole in the left eye of the picture of this dog, there is a note here...It says -<br/><br/>I don't think I am going to make it out of here alive...But if there is someone who found this note, please follow wherever the black knight takes you till the end. This is all I can help you with, may god be there with you...<br/><br/>Margaret Ashley</Popup>, document.getElementById("popup_main"))
+		})
+
+		to_hall_from_animals.addEventListener("click", (event) => {
+			room4.style.display = "none"
+			room2.style.display = "block"
+		})
+
+	</script>
+</html>

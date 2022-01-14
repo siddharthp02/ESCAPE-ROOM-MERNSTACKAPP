@@ -1,0 +1,572 @@
+<html>
+	<head>
+		<script crossdomain src="https://unpkg.com/react@16/umd/react.development.js"> </script> 	
+		<script crossdomain src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"> </script> 
+		<script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"> </script>	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script
+		src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="../CSS Files/Game_CSS.css">
+		<!-- <script type = "module">
+			import MiniDrawer from '../../../../components/drawer';
+			</script> -->
+		
+	</head>
+
+	<body>
+		<div id = "fullpage" style="color: white;"></div>
+		<button><a href = "http://localhost:3000/home" color = "white">HOME</a></button>
+			<div id = "gamePage">
+				<div id = "gameArea">
+					<div id = "popup_main"></div>
+					
+					<div id = "room1">
+
+						<img src = "../Images/Room1.jpeg" id = "bg1"/>
+						<img src = "../Images/blank.jpg" id = "dial" class = "clickables"/>
+						<img src = "../Images/blank.jpg" id = "mat" class = "clickables"/>
+						<img src = "../Images/metal1.jpeg" id = "clock"/>
+						<img src = "../Images/blank.jpg" id = "door" class = "clickables" />
+						<img src = "../Images/crowbar5.webp" id = "crowbar"/>
+
+						
+					
+					</div>
+
+					<div id = "room2">
+
+						<img src = "../Images/Room2.jpeg" id = "bg2"/>
+						<img src = "../Images/blank.jpg" id = "teddy" class = "clickables"/>
+						<img src = "../Images/blank.jpg" id = "table" class = "clickables"/>
+						<img src = "../Images/blank.jpg" id = "grid" class = "clickables"/>
+						<img src = "../Images/up.png" id = "up"/>
+
+
+					</div>
+
+					
+				</div>
+			</div>
+			<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+			<script type="module" src = "1.js"></script>
+			
+
+	</body>
+	<script type="text/javascript">
+		//Nodes
+		
+		var start = new Date()
+		var end
+		var time_spent
+		room1 = document.getElementById("room1")
+		room2 = document.getElementById("room2")
+		toggleRoom = document.getElementById("b1")
+		dial = document.getElementById("dial")
+		mat = document.getElementById('mat')
+		clock = document.getElementById('clock')
+		teddy = document.getElementById("teddy")
+		table = document.getElementById("table")
+		grid = document.getElementById("grid")
+		crowbarPic = document.getElementById('crowbar')
+		up = document.getElementById("up")
+
+
+		//Game Variables
+		var grid_array = [[0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
+		var solution_array = [[0,0,0,0,0,0,0,0,0,0], [0,1,0,0,0,0,0,0,0,0], [0,0,1,0,0,0,0,0,0,0],[0,0,0,1,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0]];
+		var crowbar = 0
+		var knife = 0
+		var screwdriver = 0
+		var key = 0
+
+	
+
+
+	</script>
+	<script type="text/babel">
+
+		//Grid Backend
+		
+		// import MiniDrawer from '../../../../components/drawer';
+		
+		// window.onload = ()=>{
+		// 	ReactDOM.render(<p>HELLOWORLD</p>, document.getElementById("fullpage"))
+		// }
+
+		
+		
+
+		crowbarPic.addEventListener("click", (event) => {
+			event.target.style.display = "none";
+			ReactDOM.render(<Popup>You found a crowbar! Wonder what could be opened by that...</Popup>, document.getElementById("popup_main"));
+			crowbar = 1;
+		})
+
+		mat.addEventListener("click", (event) => {
+			if(!knife)
+			{
+				ReactDOM.render(<Popup>You found a knife under the mat and a trap door. The trap door is shut tight...<br/><img className = "popupImages" src = "../Images/knife4.png"/></Popup>, document.getElementById("popup_main"))
+				knife = 1;
+			}
+
+			else if(!crowbar)
+			{
+				ReactDOM.render(<Popup>Knifes don't really open shut trap doors, do they?</Popup>, document.getElementById("popup_main"))
+			}
+			else if(crowbar == 1)
+			{
+				crowbar += 1
+				ReactDOM.render(<Popup>You broke open the trap door using the crowbar! Looks like there is another room down here...</Popup>, document.getElementById("popup_main"))
+				room1.style.display = "none"
+				room2.style.display = "block"
+			}
+			else
+			{
+				room1.style.display = "none"
+				room2.style.display = "block"
+			}
+		})
+
+		// dial.addEventListener("click", (event) => {
+
+		// 	ReactDOM.render(<div className = "popup"><Dial/></div>, document.getElementById("popup_main"))
+
+		// })
+		dial.addEventListener("click", (event) => {
+
+		ReactDOM.render(<Dial/>, document.getElementById("popup_main"))
+
+		})
+
+		class Dial extends React.Component
+		{
+			constructor()
+			{
+				super()
+				this.state = {input : ""}
+			}
+
+			handleChange = (event) =>
+			{
+				this.setState({input : event.target.value})
+
+				//clock
+				if($("#canvas")){$("#canvas").remove()}
+				if(event.target.value.length > 3){
+					$("#clockarea").append( $('<canvas id = "canvas" width = "200" height = "200">'));
+					var canvas = document.getElementById("canvas");
+					var ctx = canvas.getContext("2d");
+					ctx.clearRect(0, 0, canvas.width, canvas.height);
+					var radius = canvas.height / 2;
+					ctx.translate(radius, radius);
+					radius = radius * 0.90
+					drawClock();
+
+					function drawClock() {
+					drawFace(ctx, radius);
+					drawNumbers(ctx, radius);
+					drawTime(ctx, radius);
+					}
+
+					function drawFace(ctx, radius) {
+					var grad;
+					ctx.beginPath();
+					ctx.arc(0, 0, radius, 0, 2*Math.PI);
+					ctx.fillStyle = 'white';
+					ctx.fill();
+					grad = ctx.createRadialGradient(0,0,radius*0.95, 0,0,radius*1.05);
+					grad.addColorStop(0, '#333');
+					grad.addColorStop(0.5, 'white');
+					grad.addColorStop(1, '#333');
+					ctx.strokeStyle = grad;
+					ctx.lineWidth = radius*0.1;
+					ctx.stroke();
+					ctx.beginPath();
+					ctx.arc(0, 0, radius*0.1, 0, 2*Math.PI);
+					ctx.fillStyle = '#333';
+					ctx.fill();
+					}
+
+					function drawNumbers(ctx, radius) {
+					var ang;
+					var num;
+					ctx.font = radius*0.15 + "px arial";
+					ctx.textBaseline="middle";
+					ctx.textAlign="center";
+					for(num = 1; num < 13; num++){
+						ang = num * Math.PI / 6;
+						ctx.rotate(ang);
+						ctx.translate(0, -radius*0.85);
+						ctx.rotate(-ang);
+						ctx.fillText(num.toString(), 0, 0);
+						ctx.rotate(ang);
+						ctx.translate(0, radius*0.85);
+						ctx.rotate(-ang);
+					}
+					}
+
+					function drawTime(ctx, radius){
+						
+						var timing = event.target.value.split(":");
+						var hour = timing[0];
+						var minute = timing[1];
+						
+						//hour
+						hour=hour%12;
+						hour=(hour*Math.PI/6)+
+						(minute*Math.PI/(6*60))
+						
+						drawHand(ctx, hour, radius*0.5, radius*0.07);
+						//minute
+						minute=(minute*Math.PI/30);
+						drawHand(ctx, minute, radius*0.8, radius*0.07);
+						
+					}
+
+					function drawHand(ctx, pos, length, width) {
+						ctx.beginPath();
+						ctx.lineWidth = width;
+						ctx.lineCap = "round";
+						ctx.moveTo(0,0);
+						ctx.rotate(pos);
+						ctx.lineTo(0, -length);
+						ctx.stroke();
+						ctx.rotate(-pos);
+					}
+				}
+			}
+
+			handleUnmount = () =>
+			{
+				ReactDOM.unmountComponentAtNode(document.getElementById("popup_main"))
+			}
+			render()
+			{
+				
+
+				key = this.state.input == "5:27" ? 1 : 0
+				if(key)
+				{
+					dial.style.display = "none"
+					return(
+						<div className = "popup">The box under the dial opened, you found a key!<br/>
+							<button type = "button" onClick = {this.handleUnmount} className = "exitbutton">Exit</button>
+						</div>
+					)
+				}
+				else 
+				{
+					return(
+						<div className = "popup">Seems like a dial of some sort, enter a time and see if anything happens...<br/>
+							
+							<input type = "text" onChange = {this.handleChange}/><br/>
+							<div id = "clockarea"></div>
+							<button type = "button" onClick = {this.handleUnmount} className = "exitbutton">Exit</button>
+						</div>
+					)
+				}
+			}
+		}
+
+		teddy.addEventListener("click", (event) => {
+			if(knife)
+			{
+				event.target.style.display = "none"
+				screwdriver = 1
+				ReactDOM.render(<Popup>You cut open the teddy bear's head and found a screwdriver! Wonder what this unscrews...</Popup>, document.getElementById("popup_main"))
+			}
+			else
+			{
+				ReactDOM.render(<Popup>Just looks like a stuffed teddy bear...<br/>But feels like there is something inside, if only there was something to cut it...</Popup>, document.getElementById("popup_main"))
+			}
+		})
+
+		table.addEventListener("click", (event) => {
+			if(screwdriver)
+			{
+				ReactDOM.render(<Popup>You unscrew the locked table and find a note inside, the following is written on it - <br/> (1,1)(2,2)(3,3)</Popup>, document.getElementById("popup_main"))
+			}
+			else
+			{
+				ReactDOM.render(<Popup>The table seems to be locked up by two screws, only if you had something to unscrew them...</Popup>, document.getElementById("popup_main"))
+			}
+		})
+
+		up.addEventListener("click", (event) => {
+			room1.style.display = "block"
+			room2.style.display = "none"
+		})
+
+		door.addEventListener("click", (event) => {
+			
+
+			if(!key)
+			{
+				ReactDOM.render(<Popup>The door is locked, have to find the key someway...</Popup>, document.getElementById("popup_main"))
+			}
+			else
+			{
+				function getCookie(cname) {
+				let name = cname + "=";
+				let decodedCookie = decodeURIComponent(document.cookie);
+				let ca = decodedCookie.split(';');
+				for(let i = 0; i <ca.length; i++) {
+				let c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+				}
+				return "";
+			}
+				end = new Date()
+				const hours = parseInt(Math.abs(end - start) / (1000 * 60 * 60) % 24);
+				const minutes = parseInt(Math.abs(end.getTime() - start.getTime()) / (1000 * 60) % 60);
+				const seconds = parseInt(Math.abs(end.getTime() - start.getTime()) / (1000) % 60); 
+				// let username = getCookie("username");
+        		// if (username != "") {
+				// }
+				console.log(hours + ":" + minutes + ":" + seconds)
+				// this.sendtime(hours,minutes,seconds)
+				
+				// const payload = {
+				// hours: hours,
+				// mins:minutes,
+				// secs:seconds
+				// }
+
+				// axios({
+				// url:'/api/sendtime',
+				// method: 'POST',
+				// data: payload
+				// })
+				// .then(()=> {
+				// 	alert("time sent")
+				// 	console.log("Data has been sent to the server")
+					
+					
+				// })
+				// .catch(()=> {
+				// 	alert("time not sent")
+				// })
+				
+				ReactDOM.render(<Popup>The door is unlocked! You win!!<br/>Congratulations on winning level 1!<br/>Time taken: {hours}h {minutes}m {seconds}s</Popup>, document.getElementById("popup_main"))
+				// alert("Total time taken = "+hours + " hours " + minutes + " minutes " + seconds + " seconds ");
+
+			}
+		})
+
+		clock.addEventListener("click", (event) => {
+			
+			ReactDOM.render(<Popup>Its very hazy... can't see anything past it clearly... </Popup>, document.getElementById("popup_main"))
+		})
+
+		class Popup extends React.Component
+		{
+			handleUnmount = () =>
+			{
+				ReactDOM.unmountComponentAtNode(document.getElementById("popup_main"))
+			}
+			render()
+			{
+				return(
+					<div className = "popup">{this.props.children}<br/>
+					<button type = "button" onClick = {this.handleUnmount} className = "exitbutton">Exit</button>
+					</div>
+				)
+			}
+		}
+
+		grid.addEventListener("click", (event) => {
+			event.target.style.display = "none";
+			ReactDOM.render(<div className = "popup"><Grid/></div>, document.getElementById("popup_main"));
+		})
+
+
+		class Cell extends React.Component
+			{
+				handleChange = () =>
+				{
+					this.props.setVal(Number(this.props.row), Number(this.props.col))
+				}
+				render()
+				{
+					var image = Number(this.props.toggle) ? "../Images/black_tile.jpg" : "../Images/white_tile.jpg"
+					return(<img src = {image} className = "tiles" onClick = {this.handleChange}/>)
+				}
+			}
+
+		class Grid extends React.Component
+			{
+				constructor()
+				{
+					super()
+					this.state = {cells : grid_array}
+				}
+
+				handleChange = (cellrow, cellcol) => 
+				{
+					var newArray = this.state.cells
+					newArray[cellrow][cellcol] = Number(!newArray[cellrow][cellcol])
+					this.setState({cells : newArray})
+				}
+
+				handleUnmount = (event) =>
+				{
+					grid.style.display = "block"
+					grid_array = this.state.cells
+					ReactDOM.unmountComponentAtNode(document.getElementById("popup_main"))
+				}
+
+				render()
+				{
+
+					var equal = 1
+
+					for(var i = 0, l = this.state.cells.length; i < l; i++)
+					{
+						for(var j = 0, d = this.state.cells[0].length; j < d; j++)
+						{
+							if(!(Number(this.state.cells[i][j]) == Number(solution_array[i][j])))
+							{
+								equal = 0
+							}
+						}
+					}
+
+					if(!equal)
+					{
+
+						return(
+
+							<span className = "grid_centered">
+								  
+								<table>
+									<tr>
+										<td> <Cell row = "0" col = "0" setVal = {this.handleChange} toggle = {Number(this.state.cells[0][0])}/> </td>
+										<td> <Cell row = "0" col = "1" setVal = {this.handleChange} toggle = {Number(this.state.cells[0][1])}/> </td>
+										<td> <Cell row = "0" col = "2" setVal = {this.handleChange} toggle = {Number(this.state.cells[0][2])}/> </td>
+										<td> <Cell row = "0" col = "3" setVal = {this.handleChange} toggle = {Number(this.state.cells[0][3])}/> </td>
+										<td> <Cell row = "0" col = "4" setVal = {this.handleChange} toggle = {Number(this.state.cells[0][4])}/> </td>
+										<td> <Cell row = "0" col = "5" setVal = {this.handleChange} toggle = {Number(this.state.cells[0][5])}/> </td>
+										<td> <Cell row = "0" col = "6" setVal = {this.handleChange} toggle = {Number(this.state.cells[0][6])}/> </td>
+										<td> <Cell row = "0" col = "7" setVal = {this.handleChange} toggle = {Number(this.state.cells[0][7])}/> </td>
+										<td> <Cell row = "0" col = "8" setVal = {this.handleChange} toggle = {Number(this.state.cells[0][8])}/> </td>
+										<td> <Cell row = "0" col = "9" setVal = {this.handleChange} toggle = {Number(this.state.cells[0][9])}/> </td>
+									</tr>
+
+									<tr>
+										<td> <Cell row = "1" col = "0" setVal = {this.handleChange} toggle = {Number(this.state.cells[1][0])}/> </td>
+										<td> <Cell row = "1" col = "1" setVal = {this.handleChange} toggle = {Number(this.state.cells[1][1])}/> </td>
+										<td> <Cell row = "1" col = "2" setVal = {this.handleChange} toggle = {Number(this.state.cells[1][2])}/> </td>
+										<td> <Cell row = "1" col = "3" setVal = {this.handleChange} toggle = {Number(this.state.cells[1][3])}/> </td>
+										<td> <Cell row = "1" col = "4" setVal = {this.handleChange} toggle = {Number(this.state.cells[1][4])}/> </td>
+										<td> <Cell row = "1" col = "5" setVal = {this.handleChange} toggle = {Number(this.state.cells[1][5])}/> </td>
+										<td> <Cell row = "1" col = "6" setVal = {this.handleChange} toggle = {Number(this.state.cells[1][6])}/> </td>
+										<td> <Cell row = "1" col = "7" setVal = {this.handleChange} toggle = {Number(this.state.cells[1][7])}/> </td>
+										<td> <Cell row = "1" col = "8" setVal = {this.handleChange} toggle = {Number(this.state.cells[1][8])}/> </td>
+										<td> <Cell row = "1" col = "9" setVal = {this.handleChange} toggle = {Number(this.state.cells[1][9])}/> </td>
+									</tr>
+
+									<tr>
+										<td> <Cell row = "2" col = "0" setVal = {this.handleChange} toggle = {Number(this.state.cells[2][0])}/> </td>
+										<td> <Cell row = "2" col = "1" setVal = {this.handleChange} toggle = {Number(this.state.cells[2][1])}/> </td>
+										<td> <Cell row = "2" col = "2" setVal = {this.handleChange} toggle = {Number(this.state.cells[2][2])}/> </td>
+										<td> <Cell row = "2" col = "3" setVal = {this.handleChange} toggle = {Number(this.state.cells[2][3])}/> </td>
+										<td> <Cell row = "2" col = "4" setVal = {this.handleChange} toggle = {Number(this.state.cells[2][4])}/> </td>
+										<td> <Cell row = "2" col = "5" setVal = {this.handleChange} toggle = {Number(this.state.cells[2][5])}/> </td>
+										<td> <Cell row = "2" col = "6" setVal = {this.handleChange} toggle = {Number(this.state.cells[2][6])}/> </td>
+										<td> <Cell row = "2" col = "7" setVal = {this.handleChange} toggle = {Number(this.state.cells[2][7])}/> </td>
+										<td> <Cell row = "2" col = "8" setVal = {this.handleChange} toggle = {Number(this.state.cells[2][8])}/> </td>
+										<td> <Cell row = "2" col = "9" setVal = {this.handleChange} toggle = {Number(this.state.cells[2][9])}/> </td>
+									</tr>
+
+									<tr>
+										<td> <Cell row = "3" col = "0" setVal = {this.handleChange} toggle = {Number(this.state.cells[3][0])}/> </td>
+										<td> <Cell row = "3" col = "1" setVal = {this.handleChange} toggle = {Number(this.state.cells[3][1])}/> </td>
+										<td> <Cell row = "3" col = "2" setVal = {this.handleChange} toggle = {Number(this.state.cells[3][2])}/> </td>
+										<td> <Cell row = "3" col = "3" setVal = {this.handleChange} toggle = {Number(this.state.cells[3][3])}/> </td>
+										<td> <Cell row = "3" col = "4" setVal = {this.handleChange} toggle = {Number(this.state.cells[3][4])}/> </td>
+										<td> <Cell row = "3" col = "5" setVal = {this.handleChange} toggle = {Number(this.state.cells[3][5])}/> </td>
+										<td> <Cell row = "3" col = "6" setVal = {this.handleChange} toggle = {Number(this.state.cells[3][6])}/> </td>
+										<td> <Cell row = "3" col = "7" setVal = {this.handleChange} toggle = {Number(this.state.cells[3][7])}/> </td>
+										<td> <Cell row = "3" col = "8" setVal = {this.handleChange} toggle = {Number(this.state.cells[3][8])}/> </td>
+										<td> <Cell row = "3" col = "9" setVal = {this.handleChange} toggle = {Number(this.state.cells[3][9])}/> </td>
+									</tr>
+
+									<tr>
+										<td> <Cell row = "4" col = "0" setVal = {this.handleChange} toggle = {Number(this.state.cells[4][0])}/> </td>
+										<td> <Cell row = "4" col = "1" setVal = {this.handleChange} toggle = {Number(this.state.cells[4][1])}/> </td>
+										<td> <Cell row = "4" col = "2" setVal = {this.handleChange} toggle = {Number(this.state.cells[4][2])}/> </td>
+										<td> <Cell row = "4" col = "3" setVal = {this.handleChange} toggle = {Number(this.state.cells[4][3])}/> </td>
+										<td> <Cell row = "4" col = "4" setVal = {this.handleChange} toggle = {Number(this.state.cells[4][4])}/> </td>
+										<td> <Cell row = "4" col = "5" setVal = {this.handleChange} toggle = {Number(this.state.cells[4][5])}/> </td>
+										<td> <Cell row = "4" col = "6" setVal = {this.handleChange} toggle = {Number(this.state.cells[4][6])}/> </td>
+										<td> <Cell row = "4" col = "7" setVal = {this.handleChange} toggle = {Number(this.state.cells[4][7])}/> </td>
+										<td> <Cell row = "4" col = "8" setVal = {this.handleChange} toggle = {Number(this.state.cells[4][8])}/> </td>
+										<td> <Cell row = "4" col = "9" setVal = {this.handleChange} toggle = {Number(this.state.cells[4][9])}/> </td>
+									</tr>
+
+									<tr>
+										<td> <Cell row = "5" col = "0" setVal = {this.handleChange} toggle = {Number(this.state.cells[5][0])}/> </td>
+										<td> <Cell row = "5" col = "1" setVal = {this.handleChange} toggle = {Number(this.state.cells[5][1])}/> </td>
+										<td> <Cell row = "5" col = "2" setVal = {this.handleChange} toggle = {Number(this.state.cells[5][2])}/> </td>
+										<td> <Cell row = "5" col = "3" setVal = {this.handleChange} toggle = {Number(this.state.cells[5][3])}/> </td>
+										<td> <Cell row = "5" col = "4" setVal = {this.handleChange} toggle = {Number(this.state.cells[5][4])}/> </td>
+										<td> <Cell row = "5" col = "5" setVal = {this.handleChange} toggle = {Number(this.state.cells[5][5])}/> </td>
+										<td> <Cell row = "5" col = "6" setVal = {this.handleChange} toggle = {Number(this.state.cells[5][6])}/> </td>
+										<td> <Cell row = "5" col = "7" setVal = {this.handleChange} toggle = {Number(this.state.cells[5][7])}/> </td>
+										<td> <Cell row = "5" col = "8" setVal = {this.handleChange} toggle = {Number(this.state.cells[5][8])}/> </td>
+										<td> <Cell row = "5" col = "9" setVal = {this.handleChange} toggle = {Number(this.state.cells[5][9])}/> </td>
+									</tr>
+
+									<tr>
+										<td> <Cell row = "6" col = "0" setVal = {this.handleChange} toggle = {Number(this.state.cells[6][0])}/> </td>
+										<td> <Cell row = "6" col = "1" setVal = {this.handleChange} toggle = {Number(this.state.cells[6][1])}/> </td>
+										<td> <Cell row = "6" col = "2" setVal = {this.handleChange} toggle = {Number(this.state.cells[6][2])}/> </td>
+										<td> <Cell row = "6" col = "3" setVal = {this.handleChange} toggle = {Number(this.state.cells[6][3])}/> </td>
+										<td> <Cell row = "6" col = "4" setVal = {this.handleChange} toggle = {Number(this.state.cells[6][4])}/> </td>
+										<td> <Cell row = "6" col = "5" setVal = {this.handleChange} toggle = {Number(this.state.cells[6][5])}/> </td>
+										<td> <Cell row = "6" col = "6" setVal = {this.handleChange} toggle = {Number(this.state.cells[6][6])}/> </td>
+										<td> <Cell row = "6" col = "7" setVal = {this.handleChange} toggle = {Number(this.state.cells[6][7])}/> </td>
+										<td> <Cell row = "6" col = "8" setVal = {this.handleChange} toggle = {Number(this.state.cells[6][8])}/> </td>
+										<td> <Cell row = "6" col = "9" setVal = {this.handleChange} toggle = {Number(this.state.cells[6][9])}/> </td>
+									</tr>
+
+									<tr>
+										<td> <Cell row = "7" col = "0" setVal = {this.handleChange} toggle = {Number(this.state.cells[7][0])}/> </td>
+										<td> <Cell row = "7" col = "1" setVal = {this.handleChange} toggle = {Number(this.state.cells[7][1])}/> </td>
+										<td> <Cell row = "7" col = "2" setVal = {this.handleChange} toggle = {Number(this.state.cells[7][2])}/> </td>
+										<td> <Cell row = "7" col = "3" setVal = {this.handleChange} toggle = {Number(this.state.cells[7][3])}/> </td>
+										<td> <Cell row = "7" col = "4" setVal = {this.handleChange} toggle = {Number(this.state.cells[7][4])}/> </td>
+										<td> <Cell row = "7" col = "5" setVal = {this.handleChange} toggle = {Number(this.state.cells[7][5])}/> </td>
+										<td> <Cell row = "7" col = "6" setVal = {this.handleChange} toggle = {Number(this.state.cells[7][6])}/> </td>
+										<td> <Cell row = "7" col = "7" setVal = {this.handleChange} toggle = {Number(this.state.cells[7][7])}/> </td>
+										<td> <Cell row = "7" col = "8" setVal = {this.handleChange} toggle = {Number(this.state.cells[7][8])}/> </td>
+										<td> <Cell row = "7" col = "9" setVal = {this.handleChange} toggle = {Number(this.state.cells[7][9])}/> </td>
+									</tr>
+								</table>
+
+								  <center><button type = "button" id = "unmount" onClick = {this.handleUnmount} className = "exitbutton">Exit</button></center>
+							</span>
+						)
+					}
+					else
+					{
+						clock.style.display = "none"
+						return(
+							<span>There was a chiming sound upstairs...<br/>
+							<button type = "button" id = "unmount" onClick = {this.handleUnmount} className = "exitbutton">Exit</button>
+						</span>
+						)
+					}
+				}
+			}
+
+	</script>
+
+</html>

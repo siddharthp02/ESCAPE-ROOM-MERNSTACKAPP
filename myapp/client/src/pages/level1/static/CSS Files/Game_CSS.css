@@ -1,0 +1,226 @@
+button {
+	background-color: black;
+	color: red;
+}
+
+body {
+	background-color: #000000;
+	background-image: url("../Images/bg.jpg");
+	background-repeat: repeat-x;
+	font-size: 62.5%;
+}
+
+#gamePage {
+	position: relative;
+	height: 100%;
+	display : flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#canvas{
+	background-color: white;
+}
+
+#gameArea {
+	position: relative;
+	border-style: solid;
+	border-width: 4px;
+	border-color:rgba(255, 0, 0,0.5);
+	height: 60%;
+	width: 60%;
+	background-color: black;
+}
+
+#popup {
+	position: absolute;
+	z-index: 5;
+}
+
+#room1 {
+	position : relative;
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+
+#room2 {
+	position: absolute;
+	display : none;
+	height: 100%;
+	width: 100%;
+
+}
+#bg1 {
+		position: relative;
+		z-index: 1;
+		height: 100%;
+		width: 100%;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+}
+
+#bg2 {
+	position: relative;
+	z-index: 1;
+	height: 99.9%;
+	width: 80%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.txt {
+	position: absolute;
+	color: white;
+	top : 50%;
+	left : 50%;
+	transform: translate(-50%, -50%);
+}
+
+#dial {
+	top : 26%;
+	left: 81%;
+	height: 30%;
+	width: 10%;
+}
+
+#mat {
+	top: 81%;
+	left: 31%;
+	height: 8%;
+	width: 21%;
+}
+
+
+
+#clock {
+	position: absolute;
+	z-index: 3;
+	filter : blur(2px);
+	top: 16%;
+	left: 45%;
+	height: 10%;
+	width: 7%;
+}
+
+#teddy {
+	top: 62%;
+	left: 52%;
+	height: 12%;
+	width: 9%;
+}
+
+#table {
+	top: 61%;
+	left: 62%;
+	height: 34%;
+	width: 20%;
+}
+
+#grid {
+	top: 11%;
+	left: 28%;
+	height: 27%;
+	width: 14.5%;
+}
+
+.clickables {
+	position: absolute;
+	z-index: 3;
+	opacity: 0;
+}
+
+.tiles {
+	max-height: 60%;
+	max-width: 60%;
+}
+
+.popup {
+	font-family: "papyrus";
+	position: absolute;
+	background-color: black;
+	background-repeat: no-repeat;
+	/* background-image: url("../Images/bgpop.jpg"); */
+
+	/* background-size: 100% 100%; */
+	z-index: 5;
+	height: 80%;
+	width: 80%;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	font-size: 200%;
+	color: red;
+	border: 3px solid;
+	border-color: #93a2a9;
+}
+
+.exitbutton {
+	position: absolute;
+	top: 95%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: black;
+	color: red;
+	font-size: 115%;
+	font-family: "Baskerville";
+	border-radius: 20%;
+}
+
+.grid_centered {
+	position: relative;
+	display: block;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+#crowbar {
+	position: absolute;
+	z-index: 3;
+	top: 93%;
+	left: 5%;
+	height: 10%;
+	width: 10%;
+	transform: rotate(35deg);
+}
+
+.popupImages {
+	height: 30%;
+	width: 30%;
+}
+
+#up {
+	position: absolute;
+	z-index: 3;
+	left: 50%;
+	transform: translate(-50%, 0%);
+	height: 10%;
+	width: 10%;
+}
+
+#door {
+	top: 33%;
+	left: 36%;
+	height: 47%;
+	width: 25%;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+
+}
+
+.black {
+	transform: scale(0.8, 0.8);
+	max-height: 60%;
+	max-width: 60%;
+}
+
+a{
+	color: white
+}

@@ -1,0 +1,23 @@
+.table_data {
+    background-color: #38272f;
+    color: #d2d1cb;
+    border: 3px solid;
+    border-color: #93a2a9;
+    
+}
+
+table{
+    width: 200%;
+    transform:translate(-35%, 0);
+    text-align: center;
+    
+}
+#leaderboardpage{
+    min-height: 100vh;
+    height:auto;
+	overflow:auto;
+    background-color :  #390d3e;
+	display : flex;
+	align-items: center;
+	justify-content: center;
+}
